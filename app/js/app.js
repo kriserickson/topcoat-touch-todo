@@ -3,39 +3,29 @@
  */
 $(document).ready(function() {
 
-
     // Create the topcoatTouch object
     var tt = new TopcoatTouch();
 
-    function ToDo(name, details, dateDue, complete) {
-        this.name = name;
-        this.details = details;
-        this.dateDue = function() {
-            return dateDue.getFullYear() + '-' + (Array(2).join(0) +  dateDue.getMonth()).slice(-2) + '-' +
-                (Array(2).join(0) +  dateDue.getDate()).slice(-2);
-        };
-        this.complete = !!complete;
-    }
+    tt.goTo('home');
 
-    // First page we go to home...  This could be done in code by setting the class to 'page page-center', but here is how to do it in code...
-    var todos = [new ToDo('Create TODO App', '', new Date(2014,3,30)),
-        new ToDo('Test TODO App', '', new Date(2014,4,2)),
-        new ToDo('Profit!!!', '', new Date(2014,4,5))
-    ];
+    var toDos = toDoService.getAllToDos();
 
     var todoList = '';
 
-    $.each(todos, function(key, todo) {
-        todoList += '<li class="topcoat-list__item" data-rel="todoView">' +
-            '<span class="toDoName two-thirds">' + todo.name + '</span>' +
-            '<span class="toDoDate">' + todo.dateDue() + '</span>' +
+    $.each(toDos, function(key, toDo) {
+        todoList += '<li class="topcoat-list__item" data-rel="todoView" data-id="' + toDo.id + '">' +
+            '<span class="toDoName two-thirds">' + toDo.name + '</span>' +
+            '<span class="toDoDate">' + toDo.dateDueString() + '</span>' +
             '<span class="chevron"></span></li>';
     });
 
     $('#todoList').html(todoList);
 
-    tt.goTo('home');
-
-
+    $('#todoList').on('click', 'li[data-id]', function() {
+        var toDo = toDoService.getToDo($(this).data('id'));
+        $('#todoView .header, #nameField').text(toDo.name);
+        $('#dueDateField').text(toDo.dateDue.toLocaleString());
+        $('#detailsField').text(toDo.details);
+    })
 
 });
