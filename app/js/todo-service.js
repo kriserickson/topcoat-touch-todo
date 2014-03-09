@@ -12,7 +12,7 @@ window.toDoService = new (function ToDoService() {
         this.dateDue = new Date(dateDue);
         this.dateDueString = function() {
             // Create a YYYY-mm-dd style date, in production use Moment.js
-            return this.dateDue.getFullYear() + '-' + (Array(2).join(0) +  this.dateDue.getMonth()).slice(-2) + '-' +
+            return this.dateDue.getFullYear() + '-' + (Array(2).join(0) + (this.dateDue.getMonth() + 1)).slice(-2) + '-' +
                 (Array(2).join(0) +  this.dateDue.getDate()).slice(-2);
         };
         this.complete = !!complete; // Enforce a boolean

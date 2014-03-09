@@ -6,32 +6,19 @@
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
     <!-- @@DEVELOPMENT@@ -->
-
-
     <link href="libs/topcoat-touch/css/topcoat-mobile-light.css" rel="stylesheet">
-
     <link href="libs/topcoat-touch/css/topcoat-touch.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
 
-
     <script src="cordova.js"></script>
-
     <script src="libs/topcoat-touch/js/jquery-2.0.3.js"></script>
-
-
     <script src="libs/topcoat-touch/js/iscroll.js"></script>
-
-
     <script src="libs/topcoat-touch/js/hammer.js"></script>
-
-
     <script src="libs/topcoat-touch/js/fastclick.js"></script>
-
-
     <script src="libs/topcoat-touch/js/topcoat-touch.js"></script>
-
-    <script src="js/app.js"></script>
     <script src="js/todo-service.js"></script>
+    <script src="js/app.js"></script>
+
 
     <!-- @@DEVELOPMENT@@ -->
     <!-- @@PRODUCTION@@
@@ -88,16 +75,53 @@
     </div>
     <div class="content">
         <div class="item">
-            <div class="quarter left" id="nameLabel">Name:</div>
+            <div class="quarter left">Name:</div>
             <div class="three-quarters right" id="nameField"></div>
         </div>
         <div class="item">
-            <div class="quarter left" id="dueDateLabel">Due Date:</div>
+            <div class="quarter left">Due Date:</div>
             <div class="three-quarters right" id="dueDateField"></div>
         </div>
         <div class="item">
-            <div class="full" id="detailsLabel">Details:</div>
+            <div class="full">Details:</div>
             <div class="full" id="detailsField"></div>
+        </div>
+    </div>
+</div>
+
+<div id="todoEdit" data-role="page">
+    <div class="topcoat-navigation-bar">
+        <div class="topcoat-navigation-bar__item left quarter">
+            <a class="topcoat-icon-button--quiet back-button" href="#">
+                <span class="topcoat-icon topcoat-icon--back"></span>
+            </a>
+        </div>
+        <div class="topcoat-navigation-bar__item center half">
+            <h1 class="topcoat-navigation-bar__title header"></h1>
+        </div>
+        <div class="topcoat-navigation-bar__item right quarter">
+            <a class="topcoat-icon-button--quiet menu-button" href="#">
+                <span class="topcoat-icon topcoat-icon--menu-stack"></span>
+            </a>
+        </div>
+    </div>
+    <div class="content">
+        <div class="item">
+            <div class="quarter left">Name:</div>
+            <input class="three-quarters topcoat-text-input" placeholder="ToDo Name" id="nameInput"/>
+        </div>
+        <div class="item">
+            <div class="quarter left">Due Date:</div>
+            <input type="datetime" class="three-quarters topcoat-text-input" placeholder="Due Date" id="dueDateInput"/>
+        </div>
+        <div class="item">
+            <div class="full">Details:</div>
+            <textarea class="full topcoat-textarea" id="detailsTextarea"></textarea>
+        </div>
+    </div>
+    <div class="topcoat-bottom-bar">
+        <div class="topcoat-bottom-bar-item full center">
+            <button class="topcoat-button--cta" id="saveButton">Save Todo</button>
         </div>
     </div>
 </div>
