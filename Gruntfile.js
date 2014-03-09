@@ -112,7 +112,7 @@ module.exports = function (grunt) {
     grunt.registerTask('debug-build', ['debugCordova', 'cordovacli:build']);
     grunt.registerTask('build', ['cordova', 'cordovacli:build']);
     grunt.registerTask('prepare', ['cordova', 'cordovacli:prepare']);
-    grunt.registerTask('debug-prepare', ['cordova', 'cordovacli:prepare']);
+    grunt.registerTask('debug-prepare', ['debug-cordova', 'cordovacli:prepare']);
     grunt.registerTask('cordova', ['clean:dist', 'clean:cordova', 'concat', 'uglify', 'cssmin', 'transform_html', 'copy:cordova']);
     grunt.registerTask('debug-cordova', ['clean:dist', 'clean:cordova', 'copy:debugCordova']);
     grunt.registerTask('cordova-debug', ['debugCordova']);
