@@ -24,7 +24,31 @@ $(document).ready(function() {
         toDoService.removeToDo(delToDo);
         toDoService.save();
         createToDoList();
-        tt.goTo('#home');
+        if (tt.currentPage() != 'home') {
+            tt.goTo('home');
+        }
+    }
+
+    function showDeleteButton() {
+
+        // reference the just swiped list item
+        var $li = $(this);
+        var toDoId = $li.data('id');
+
+        // create buttons and div container
+        var $deleteBtn = $('<button class="deleteButton topcoat-button">Delete</buton>');
+
+        $deleteBtn.css({opacity: 0})
+            .bind('click', function () {
+                $deleteBtn.remove();
+                deleteToDo(toDoService.getToDo(toDoId))
+            });
+
+        // insert swipe div into list item
+        $li.prepend($deleteBtn);
+        $deleteBtn.animate({opacity: 1}, 150);
+
+        return false;
     }
 
     createToDoList();
@@ -38,14 +62,14 @@ $(document).ready(function() {
 
     var $todoEdit = $('#todoEdit');
 
-    $('#addButton').click(function() {
+    tt.on(tt.clickEvent, '#addButton', 'home', function() {
         state = 'new';
         $todoEdit.find('.header').text('Add ToDo');
         $todoEdit.find('input, textarea').val('');  // Clear out the input and text..
         tt.goTo($todoEdit);
     });
 
-    $('#editButton').click(function() {
+    tt.on(tt.clickEvent, '#editButton', 'todoView', function() {
         state = 'save';
         $todoEdit.find('.header').text('Edit ' + toDo.name);
         $todoEdit.find('#nameInput').val(toDo.name);
@@ -54,12 +78,17 @@ $(document).ready(function() {
         tt.goTo($todoEdit);
     });
 
-    $('#deleteButton').click(function() {
+    tt.on(tt.clickEvent, '#deleteButton', 'todoView', function() {
         deleteToDo(toDo);
     });
 
+    tt.on('swiperight', 'li', 'home', showDeleteButton);
 
-    $('#saveButton').click(function() {
+    tt.on(tt.EVENTS.PAGE_END, 'home', function() {
+        $('.deleteButton').remove();
+    });
+
+    tt.on(tt.clickEvent, '#saveButton', 'todoEdit', function() {
         var name = $('#nameInput').val();
         var details = $('#detailsTextarea').val();
         var dueDate = $('#dueDateInput').val();

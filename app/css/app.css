@@ -21,3 +21,20 @@
     padding: .5em;
     height: 15em;
 }
+
+.deleteButton {
+    position: absolute;
+    right: 41px;
+    width: 100px;
+    height: 28px;
+    line-height: 28px;
+    background: #A00;
+    color: #FFF;
+    text-shadow: none;
+    box-shadow: none;
+    top: 19px;
+}
+
+.deleteButton:hover {
+    background: #933;
+}
