@@ -5,6 +5,8 @@ $(document).ready(function() {
 
     // Create the topcoatTouch object
     var tt = new TopcoatTouch();
+    var toDo;
+    var state;
 
     function createToDoList() {
         var toDos = toDoService.getAllToDos();
@@ -18,10 +20,17 @@ $(document).ready(function() {
         $('#todoList').html(todoList);
     }
 
+    function deleteToDo(delToDo) {
+        toDoService.removeToDo(delToDo);
+        toDoService.save();
+        createToDoList();
+        tt.goTo('#home');
+    }
+
     createToDoList();
 
     $('#todoList').on('click', 'li[data-id]', function() {
-        var toDo = toDoService.getToDo($(this).data('id'));
+        toDo = toDoService.getToDo($(this).data('id'));
         $('#todoView .header, #nameField').text(toDo.name);
         $('#dueDateField').text(toDo.dateDue.toLocaleString());
         $('#detailsField').text(toDo.details);
@@ -30,13 +39,37 @@ $(document).ready(function() {
     var $todoEdit = $('#todoEdit');
 
     $('#addButton').click(function() {
+        state = 'new';
         $todoEdit.find('.header').text('Add ToDo');
         $todoEdit.find('input, textarea').val('');  // Clear out the input and text..
         tt.goTo($todoEdit);
     });
 
+    $('#editButton').click(function() {
+        state = 'save';
+        $todoEdit.find('.header').text('Edit ' + toDo.name);
+        $todoEdit.find('#nameInput').val(toDo.name);
+        $todoEdit.find('#dueDateInput').val(toDo.dateDueString());
+        $todoEdit.find('#detailsTextarea').val(toDo.details);
+        tt.goTo($todoEdit);
+    });
+
+    $('#deleteButton').click(function() {
+        deleteToDo(toDo);
+    });
+
+
     $('#saveButton').click(function() {
-        toDoService.addToDo($('#nameInput').val(), $('#detailsTextarea').val(), $('#dueDateInput').val());
+        var name = $('#nameInput').val();
+        var details = $('#detailsTextarea').val();
+        var dueDate = $('#dueDateInput').val();
+        if (state == 'new') {
+            toDoService.addToDo(name, details, dueDate);
+        } else {
+            toDo.name = name;
+            toDo.details = details;
+            toDo.dueDate = dueDate;
+        }
         toDoService.save();
         createToDoList();
         tt.goTo('#home');
