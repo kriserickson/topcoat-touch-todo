@@ -6,6 +6,15 @@
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
     <!-- @@DEVELOPMENT@@ -->
+    <script>
+        if (window.location.hash == '#testing') {
+            window.injectedStorage = {todos: "{\"1\":{\"id\":1,\"name\":\"Test 1 Name\",\"details\":\"Test 1 Details.\",\"dateDue\":\"2014-01-01T00:00:00.000Z\",\"complete\":false}," +
+                    "\"2\":{\"id\":2,\"name\":\"Test 2 Name\",\"details\":\"Test 2 Details\",\"dateDue\":\"2014-05-02T00:00:00.000Z\",\"complete\":true}," +
+                    "\"3\":{\"id\":3,\"name\":\"Test 3 Name\",\"details\":\"Test 3 Details\",\"dateDue\":\"2014-05-05T00:00:00.000Z\",\"complete\":false}," +
+                    "\"4\":{\"id\":4,\"name\":\"Test 4 Name\",\"details\":\"Test 4 Details\",\"dateDue\":\"2014-06-01T00:00:00.000Z\",\"complete\":false}}"};
+        }
+    </script>
+
     <link href="libs/topcoat-touch/css/topcoat-mobile-light.css" rel="stylesheet">
     <link href="libs/topcoat-touch/css/topcoat-touch.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
@@ -18,8 +27,6 @@
     <script src="libs/topcoat-touch/js/topcoat-touch.js"></script>
     <script src="js/todo-service.js"></script>
     <script src="js/app.js"></script>
-
-
     <!-- @@DEVELOPMENT@@ -->
     <!-- @@PRODUCTION@@
     <link href="css/todo.min.css" rel="stylesheet" type="text/css">
@@ -128,6 +135,29 @@
     <div class="topcoat-bottom-bar">
         <div class="topcoat-bottom-bar-item full center">
             <button class="topcoat-button--cta" id="saveButton">Save Todo</button>
+        </div>
+    </div>
+</div>
+
+<div data-role="dialog" id="about">
+    <div class="topcoat-touch-dialog">
+        <div class="topcoat-touch-header">
+            <h1>About</h1>
+        </div>
+
+        <div class="topcoat-touch-dialog-content">
+            <div>
+                <h2>Topcoat Touch Todo</h2>
+
+                <p>Simple ToDo App Demo</p>
+
+            </div>
+
+            <div class="topcoat-touch-grid  buttons">
+                <div class="full center">
+                    <button class="topcoat-button--cta back-button">OK</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

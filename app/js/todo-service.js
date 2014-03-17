@@ -1,5 +1,5 @@
 // This todoService is a singleton, so we new an Anonymous function.
-window.toDoService = new (function ToDoService() {
+window.ToDoService = function ToDoService(localStorage) {
     var id = 1;
     var toDos = {};
     var self = this;
@@ -41,8 +41,8 @@ window.toDoService = new (function ToDoService() {
     };
 
     // If we already have todos, load them
-    if (window.localStorage.getItem('todos')) {
-        var toDoPojos = JSON.parse(window.localStorage.getItem('todos'));
+    if (localStorage['todos']) {
+        var toDoPojos = JSON.parse(localStorage['todos']);
         $.each(toDoPojos, function(index, val) {
             self.addToDo(val.name, val.details, val.dateDue, val.complete);
         });
@@ -55,4 +55,4 @@ window.toDoService = new (function ToDoService() {
     }
 
 
-})();
+};

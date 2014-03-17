@@ -12,7 +12,14 @@
     "grunt-cordovacli": "~0.3.3",
     "grunt-transform-html" : "git+https://github.com/kriserickson/grunt-transform-html.git",
 
-    "grunt-http-server": "~0.0.4"
+    "grunt-http-server": "~0.0.4",
+
+    "mocha": "1.16.1",
+    "chai": "1.8.1",
+    "mocha-phantomjs": "3.3.0"
+  },
+  "scripts": {
+    "test": "mocha-phantomjs TestRunner.html"
   }
 }
 

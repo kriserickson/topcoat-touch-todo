@@ -4,12 +4,13 @@
 $(document).ready(function() {
 
     // Create the topcoatTouch object
-    var tt = new TopcoatTouch();
+    var tt = new TopcoatTouch({menu: [{id: 'about', name: 'About'}]});
+    var toDoStorage = new window.ToDoService(window.injectedStorage ?  window.injectedStorage : window.localStorage);
     var toDo;
     var state;
 
     function createToDoList() {
-        var toDos = toDoService.getAllToDos();
+        var toDos = toDoStorage.getAllToDos();
         var todoList = '';
         $.each(toDos, function (key, toDo) {
             todoList += '<li class="topcoat-list__item" data-rel="todoView" data-id="' + toDo.id + '">' +
@@ -21,8 +22,8 @@ $(document).ready(function() {
     }
 
     function deleteToDo(delToDo) {
-        toDoService.removeToDo(delToDo);
-        toDoService.save();
+        toDoStorage.removeToDo(delToDo);
+        toDoStorage.save();
         createToDoList();
         if (tt.currentPage() != 'home') {
             tt.goTo('home');
@@ -41,7 +42,7 @@ $(document).ready(function() {
         $deleteBtn.css({opacity: 0})
             .bind('click', function () {
                 $deleteBtn.remove();
-                deleteToDo(toDoService.getToDo(toDoId))
+                deleteToDo(toDoStorage.getToDo(toDoId))
             });
 
         // insert swipe div into list item
@@ -53,8 +54,14 @@ $(document).ready(function() {
 
     createToDoList();
 
+    tt.on(tt.EVENTS.MENU_ITEM_CLICKED, function(page, id) {
+        if (id == 'about') {
+            tt.goTo('about', 'pop', true);
+        }
+    });
+
     $('#todoList').on('click', 'li[data-id]', function() {
-        toDo = toDoService.getToDo($(this).data('id'));
+        toDo = toDoStorage.getToDo($(this).data('id'));
         $('#todoView .header, #nameField').text(toDo.name);
         $('#dueDateField').text(toDo.dateDue.toLocaleString());
         $('#detailsField').text(toDo.details);
@@ -93,13 +100,13 @@ $(document).ready(function() {
         var details = $('#detailsTextarea').val();
         var dueDate = $('#dueDateInput').val();
         if (state == 'new') {
-            toDoService.addToDo(name, details, dueDate);
+            toDoStorage.addToDo(name, details, dueDate);
         } else {
             toDo.name = name;
             toDo.details = details;
             toDo.dueDate = dueDate;
         }
-        toDoService.save();
+        toDoStorage.save();
         createToDoList();
         tt.goTo('#home');
     });

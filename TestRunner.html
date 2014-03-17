@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Topcoat Touch Tests </title>
+    <link rel="stylesheet" href="./node_modules/mocha/mocha.css"/>
+    <script src="./node_modules/mocha/mocha.js"></script>
+    <script src="./node_modules/chai/chai.js"></script>
+    <script src="app/libs/topcoat-touch/js/jquery-2.0.3.js"></script>
+
+   <style>
+        /** Quick hack to make the site visible within the test container... **/
+        #testContainer {
+            width: 320px;
+            height: 480px;
+            border: 1px solid #000;
+            position: fixed;
+            left: calc(50% - 160px);
+            top: calc(50% - 240px);
+        }
+
+        #testContainer > div {
+            position: absolute;
+            top: 9999px;
+        }
+        body > div {
+            position: static;
+            top: 0;
+        }        
+        body {
+            overflow: visible;
+        }
+    
+    </style>
+
+    <script>
+        mocha.ui('bdd');
+        mocha.reporter('html');
+        var expect = chai.expect;
+    </script>
+
+    <script src="test/testToDos.js"></script>
+</head>
+<body>
+    <div id="mocha">
+
+    </div>
+    <iframe id="testContainer" src="app/index.html#testing">
+
+    </iframe>
+<script>
+    $('#testContainer').on('load', function() {
+        window.$iframeContents = $('#testContainer').contents();
+        if (window.mochaPhantomJS) {
+            mochaPhantomJS.run();
+        } else {
+            mocha.setup({globals: ['$']});
+            mocha.run();
+        }
+    });
+</script>
+</body>
+</html>
+
+
