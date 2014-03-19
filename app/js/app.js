@@ -113,4 +113,6 @@ $(document).ready(function() {
 
     tt.goTo('home');
 
+    $('body').attr('data-startedapp',1);
+
 });
