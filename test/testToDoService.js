@@ -1,4 +1,4 @@
-describe("Test ToDoApp Home Page", function () {
+describe("Test ToDoService", function () {
     var toDoService;
     
     before(function() {

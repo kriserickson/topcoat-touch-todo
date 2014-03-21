@@ -17,7 +17,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         'http-server': {
             dev : {
-                port: 3333,
+                port: 3000,
                 root: './app/'
             }
         }

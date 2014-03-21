@@ -1,4 +1,3 @@
-// This todoService is a singleton, so we new an Anonymous function.
 window.ToDoService = function ToDoService(localStorage) {
     var id = 1;
     var toDos = {};

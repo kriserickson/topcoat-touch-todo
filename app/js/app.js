@@ -37,7 +37,7 @@ $(document).ready(function() {
         var toDoId = $li.data('id');
 
         // create buttons and div container
-        var $deleteBtn = $('<button class="deleteButton topcoat-button">Delete</buton>');
+        var $deleteBtn = $('<button class="deleteButton topcoat-button">Delete</button>');
 
         $deleteBtn.css({opacity: 0})
             .bind('click', function () {
