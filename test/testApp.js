@@ -1,6 +1,23 @@
 /** @namespace $iframeContents **/
-describe("Test ToDoApp Home Page", function () {
 
+/** There are issues with PhantomJS and jQuery.trigger (see http://stackoverflow.com/questions/16802795/click-not-working-in-mocha-phantomjs-on-certain-elements)
+ *  so we have to implement mouse-click ourselves..
+ */
+function clickElement(el){
+    var ev = document.createEvent("MouseEvent");
+    ev.initMouseEvent(
+      "click",
+      true /* bubble */, true /* cancelable */,
+      window, null,
+      0, 0, 0, 0, /* coordinates */
+      false, false, false, false, /* modifier keys */
+      0 /*left*/, null
+    );
+    el.dispatchEvent(ev);
+}
+
+
+describe("Test Home Page", function () {
 
     it('should be on the home page', function() {
         expect($iframeContents.find('#home').hasClass('page-center')).to.be.true;
@@ -21,11 +38,10 @@ describe("Test ToDoApp Home Page", function () {
 
 });
 
-describe("Test ToDoApp View ToDo", function () {
+describe("Test View ToDo", function () {
 
     before(function(done) {
-        var $res = $iframeContents.find('#todoList li[data-id="2"]');
-        $res.trigger('click');
+        clickElement($iframeContents.find('#todoList li[data-id="2"]')[0]);
         (function checkDone() {
             if ($iframeContents.find('#todoView').hasClass('page-center')) {
                 done();
@@ -36,7 +52,7 @@ describe("Test ToDoApp View ToDo", function () {
     });
 
     after(function(done) {
-        $iframeContents.find('#todoView .topcoat-icon--back').trigger('click');
+        clickElement($iframeContents.find('#todoView .topcoat-icon--back')[0]);
         (function checkDone() {
             if ($iframeContents.find('#home').hasClass('page-center')) {
                 done();
@@ -53,11 +69,11 @@ describe("Test ToDoApp View ToDo", function () {
 
 });
 
-describe("Test ToDoApp Add ToDo", function () {
+describe("Test Add ToDo", function () {
 
 
     before(function(done) {
-        $iframeContents.find('#addButton').trigger('click');
+        clickElement($iframeContents.find('#addButton')[0]);
         (function checkDone() {
             if ($iframeContents.find('#todoEdit').hasClass('page-center')) {
                 done();
@@ -72,7 +88,7 @@ describe("Test ToDoApp Add ToDo", function () {
         $iframeContents.find('#nameInput').val(nameText);
         $iframeContents.find('#dueDateInput').val('2014-06-06');
         $iframeContents.find('#detailsTextarea').val('Testing Creating ToDo');
-        $iframeContents.find('#saveButton').trigger('click');
+        clickElement($iframeContents.find('#saveButton')[0]);
         (function checkDone() {
             if ($iframeContents.find('#home').hasClass('page-center')) {
                 expect($iframeContents.find('#todoList li').length).to.equal(5);

@@ -8,11 +8,6 @@ describe("Test ToDoService", function () {
                     "\"4\":{\"id\":4,\"name\":\"Test 4 Name\",\"details\":\"Test 4 Details\",\"dateDue\":\"2014-06-01T00:00:00.000Z\",\"complete\":false}}"});
     });
 
-    after(function() {
-
-
-    });
-
     it('should have 4 toDos', function() {
         expect(Object.keys(toDoService.getAllToDos()).length).to.equal(4);
     });
@@ -30,10 +25,6 @@ describe("Test ToDoService", function () {
         toDoService.removeToDo(removeToDo);
         expect(Object.keys(toDoService.getAllToDos()).length).to.equal(3);
         expect(toDoService.getToDo(3)).to.equal(undefined);
-
     });
-
-
-
 
 });

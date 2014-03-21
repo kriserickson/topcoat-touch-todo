@@ -60,7 +60,8 @@ $(document).ready(function() {
         }
     });
 
-    $('#todoList').on('click', 'li[data-id]', function() {
+    $('#todoList').on(tt.clickEvent, 'li[data-id]', function() {
+        console.log('Todo clicked');
         toDo = toDoStorage.getToDo($(this).data('id'));
         $('#todoView .header, #nameField').text(toDo.name);
         $('#dueDateField').text(toDo.dateDue.toLocaleString());
@@ -111,8 +112,9 @@ $(document).ready(function() {
         tt.goTo('#home');
     });
 
+    tt.on(tt.EVENTS.PAGE_START, 'home', function() {
+        $('body').attr('data-startedapp',1);
+    });
     tt.goTo('home');
-
-    $('body').attr('data-startedapp',1);
 
 });
